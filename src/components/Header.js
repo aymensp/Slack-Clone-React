@@ -38,7 +38,7 @@ const HeaderContainer = styled.div`
  display: flex;
  justify-content: space-between;
  padding: 5px 0;
- background-color: var(--slack-color);
+ background-color: #350d36;
  color: white;
 `;
 const HeaderLeft = styled.div`
@@ -68,7 +68,7 @@ margin-right: 15px;
 `;
 const HeaderSearch = styled.div`
 padding: 0 50px;
-color: gray;
+color: white;
 border: 1px gray solid;
 align-items: center;
 flex: 0.45;
@@ -81,8 +81,9 @@ display: flex;
     background-color: transparent;
     border: none;
     text-align: center;
-    min-width: 30vw;
+    min-width: 40vw;
     outline: 0;
     color:white;  
+    
 }
 `;

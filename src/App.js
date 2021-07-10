@@ -9,6 +9,7 @@ import {
   Route,
 
 } from "react-router-dom";
+import Chat from './components/Chat';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <SideBar/>
         <Switch>
             <Route path="/" exact>
-              
+            <Chat/>  
             </Route>
           </Switch>
         </AppBody>          
@@ -37,5 +38,4 @@ export default App;
 const AppBody = styled.div`
 display: flex;
 height: 100vh;
-
 `;
