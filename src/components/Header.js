@@ -4,8 +4,13 @@ import styled from 'styled-components';
 import { Avatar } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import userEvent from '@testing-library/user-event';
+import {auth} from "../firebase";
+import {useAuthState} from 'react-firebase-hooks/auth'
 
 function Header() {
+    const [user] = useAuthState(auth);
+    console.log("user is " , user)
     return (
         <HeaderContainer>
             <HeaderLeft>
@@ -18,7 +23,10 @@ function Header() {
             <HeaderRight>
                 <HelpOutlineIcon />
                 <HeaderAvatar
-                    variant="square"
+                onClick={()=> auth.signOut()}
+                alt = {user?.displayName}
+                src = {user?.photoURL}
+                variant="square"
                 //TODO add onclick
                 // src=''
 

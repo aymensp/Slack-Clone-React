@@ -15,9 +15,13 @@ import AddIcon from '@material-ui/icons/Add'
 import SideBarOption from './SideBarOption';
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { db } from '../firebase';
+import {auth} from "../firebase";
+import {useAuthState} from 'react-firebase-hooks/auth'
 
 
 function SideBar() {
+    const [user] = useAuthState(auth);
+
     const [channels, loading, error] = useCollection(db.collection('rooms'));
 
     return (
@@ -27,7 +31,7 @@ function SideBar() {
                     <h2>AYMAN YE MAALEM</h2>
                     <h3>
                         <FiberManualRecordIcon />
-                        Ayman Smati
+                        {user?.displayName}
                     </h3>
 
                 </SideBarInfo>

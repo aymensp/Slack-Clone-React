@@ -3,9 +3,13 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { db } from '../firebase';
 import firebase from 'firebase';
+import {auth} from "../firebase";
+import {useAuthState} from 'react-firebase-hooks/auth'
 
-function ChatInput( {channelId,channelName}) {
-    const [input , setInput] = useState('')
+function ChatInput({chatRef, channelId, channelName }) {
+    const [user] = useAuthState(auth);
+
+    const [input, setInput] = useState('')
     console.log(channelId)
     const sendMessage = e => {
         e.preventDefault();
@@ -13,32 +17,35 @@ function ChatInput( {channelId,channelName}) {
             return false;
         }
         db.collection('rooms').doc(channelId).collection('messages').add({
-            message : input,
-            timestamp : firebase.firestore.FieldValue.serverTimestamp(),
-            user:'Ayman Smati' ,
-            userImage : 'https://media-exp1.licdn.com/dms/image/C5635AQGtEOk0FW69RQ/profile-framedphoto-shrink_400_400/0/1606053788555?e=1625925600&v=beta&t=wiRXnyQSORkHlP5aBeyA70REsWxOJcy15GFNFtc3odo'
+            message: input,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            user: user.displayName,
+            userImage: user.photoURL
 
         })
-
+        chatRef.current.scrollIntoView({
+            behavior : "smooth",
+        });
+     setInput('')
 
     }
     return (
-      <ChatInputContainer>
-          <form  >
-              <input value={input} onChange={(e)=> setInput(e.target.value)}  placeholder={`Message to #Room`}/>
-              <Button  type='submit' onClick={sendMessage}>
-                  Send 
-              </Button>
+        <ChatInputContainer>
+            <form  >
+                <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={`Message to #/${channelName}`} />
+                <button type='submit' onClick={sendMessage}>
+                    Send
+                </button>
 
-          </form>
-      </ChatInputContainer>
+            </form>
+        </ChatInputContainer>
     )
 }
 
 export default ChatInput
 
 
-const ChatInputContainer = styled.div `
+const ChatInputContainer = styled.div`
 border-radius: 20px;
 > form {
     position: relative;
@@ -56,7 +63,7 @@ border-radius: 20px;
     outline: none;
 }
 > form > button {
-    
+visibility:hidden;
 }
 
 `;
