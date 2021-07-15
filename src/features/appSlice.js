@@ -3,7 +3,7 @@ import {  createSlice } from '@reduxjs/toolkit';
 export const appSlice = createSlice({
   name: 'app',
   initialState : {
-    roomId: null  
+    roomId: 'Ma8i3xUTa5ObI8z5PVqv'  
   },
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
